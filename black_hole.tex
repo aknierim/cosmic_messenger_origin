@@ -1,0 +1,166 @@
+\documentclass[border=2mm]{standalone}
+
+\usepackage{fontspec}
+\setmainfont{Fira Sans}
+
+\usepackage{unicode-math}
+\setmathfont{Fira Math}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  decorations.pathmorphing,
+  decorations.markings,
+  arrows.meta,
+  bending,
+  fadings
+}
+\usepackage{xcolor}
+\input{color_palette.tex}
+
+\tikzfading[
+  name=fade out,
+  inner color=transparent!0,
+  outer color=transparent!100
+]
+\tikzfading[
+  name=fade out b,
+  inner color=transparent!50,
+  outer color=transparent!100
+]
+\tikzfading[
+  name=fade out jet,
+  inner color=transparent!0,
+  outer color=transparent!90
+]
+
+
+\tikzset{%
+  clip even odd rule/.code={\pgfseteorule},
+  invclip/.style={%
+    clip,insert path= [clip even odd rule]{%
+      [reset cm](-\maxdimen,-\maxdimen)rectangle(\maxdimen,\maxdimen)
+    }%
+  }%
+}
+
+
+\begin{document}
+  \begin{tikzpicture}[
+      circFade/.style={color=#1, path fading=fade out,},
+      ellipseFade/.style={color=#1, path fading=fade out b,},
+      jetFade/.style={color=#1, path fading=fade out jet,},
+    ]
+    \coordinate (AGN) at (3,6);
+    %\clip (AGN) rectangle +(-1, 1);
+    % \fill[spaceblue] (0,0) rectangle (5,15);
+
+    \fill[ellipseFade=agnyellow!15!white] (AGN) ellipse (2cm and 0.4cm);
+    \fill[circFade=agnyellow!15!white] (AGN) circle (1.1cm);
+
+    %% upper half
+    \begin{scope}
+      \clip (1,6.212) rectangle (4,8);
+      \fill[red!50!blue!60!spaceblue] (AGN) circle (0.76cm);
+    \end{scope}
+    \begin{scope}
+      \clip (1,6.2) rectangle (4,8);
+      \fill[agnyellow!20!red] (AGN) circle (0.74cm);
+    \end{scope}
+    \begin{scope}
+      \clip (1,6.19) rectangle (4,8);
+      \fill[agnyellow!60!red] (AGN) circle (0.72cm);
+    \end{scope}
+    \begin{scope}
+      \clip (1,6.145) rectangle (4,8);
+      \fill[agnyellow!60!white] (AGN) circle (0.7cm);
+    \end{scope}
+    \begin{scope}
+      \clip (1,6.11) rectangle (4,8);
+      \fill[agnyellow!30!white] (AGN) circle (0.65cm);
+    \end{scope}
+    \begin{scope}
+      \clip (1,6) rectangle (4,8);
+      \fill[agnyellow!5!white] (AGN) circle (0.6cm);
+    \end{scope}
+
+    %% Lower half
+    \begin{scope}
+      \clip (1,6) rectangle (4,4);
+      \fill[cosmicdeeppurple] (AGN) circle (0.7cm);
+      \fill[cosmicpurple] (AGN) circle (0.68cm);
+      \fill[red!50!blue] (AGN) circle (0.64cm);
+      \fill[red!80!blue] (AGN) circle (0.6cm);
+      \fill[red!80!blue!70!white] (AGN) circle (0.55cm);
+    \end{scope}
+
+
+    \fill[spaceblack] (AGN) circle (0.5cm);
+
+
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.74cm]AGN) arc(0:180:0.74cm);
+      \end{pgfinterruptboundingbox}
+      \draw [red!50!blue!60!spaceblue] (AGN) ellipse (1.5cm and 0.25cm);
+    \end{scope}
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.72cm]AGN) arc(0:180:0.72cm);
+      \end{pgfinterruptboundingbox}
+      \draw [agnyellow!20!red] (AGN) ellipse (1.485cm and 0.235cm);
+    \end{scope}
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.70cm]AGN) arc(0:180:0.70cm);
+      \end{pgfinterruptboundingbox}
+      \draw [agnyellow!60!red] (AGN) ellipse (1.475cm and 0.222cm);
+    \end{scope}
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.65cm]AGN) arc(0:180:0.65cm);
+      \end{pgfinterruptboundingbox}
+      \draw [agnyellow!60!white, line width=0.05cm] (AGN) ellipse (1.444cm and 0.19cm);
+    \end{scope}
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.6cm]AGN) arc(0:180:0.6cm);
+      \end{pgfinterruptboundingbox}
+      \draw [agnyellow!30!white, line width=0.05cm] (AGN) ellipse (1.4cm and 0.15cm);
+    \end{scope}
+    \begin{scope}
+      \begin{pgfinterruptboundingbox}
+        \path [invclip] ([xshift=0.5cm]AGN) arc(0:180:0.5cm);
+      \end{pgfinterruptboundingbox}
+      \fill [agnyellow!5!white, line width=0.05cm] (AGN) ellipse (1.38cm and 0.13cm);
+    \end{scope}
+    \fill [spaceblack] (AGN) ellipse (0.5cm and 0.075cm);
+
+    \coordinate (UpperJetOrigin) at ([xshift=0.2cm, yshift=0.9cm]AGN);
+    \fill [
+      jetblue1,
+      path fading=north,
+    ] (UpperJetOrigin)
+      to[bend right=10] ([yshift=4.5cm]UpperJetOrigin)
+      arc(20:200:0.5cm) to[bend left=10] (UpperJetOrigin);
+    \fill [
+      jetblue1,
+      path fading=north,
+    ] (UpperJetOrigin)
+      to[bend right=10] ([xshift=-0.1cm, yshift=4cm]UpperJetOrigin)
+      arc(20:200:0.25cm) to[bend left=10] (UpperJetOrigin);
+
+    \coordinate (LowerJetOrigin) at ([xshift=-0.2cm, yshift=-0.9cm]AGN);
+    \fill [
+      jetblue1,
+      path fading=south,
+    ] (LowerJetOrigin)
+      to[bend right=10] ([xshift=-0.25cm, yshift=-4.5cm]LowerJetOrigin)
+      arc(20:200:-0.5cm) to[bend left=10] (LowerJetOrigin);
+    \fill [
+      jetblue1,
+      path fading=south,
+    ] (LowerJetOrigin)
+      to[bend right=10] ([xshift=-0.1cm, yshift=-4cm]LowerJetOrigin)
+      arc(20:200:-0.25cm) to[bend left=10] (LowerJetOrigin);
+  \end{tikzpicture}
+\end{document}

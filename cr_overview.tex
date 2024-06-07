@@ -1,0 +1,97 @@
+\documentclass[border=2mm]{standalone}
+
+\usepackage{fontspec}
+\setmainfont{Fira Sans}
+
+\usepackage{unicode-math}
+\setmathfont{Fira Math}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  decorations.pathmorphing,
+  decorations.markings,
+  arrows.meta,
+  bending,
+  fadings,
+  snakes
+}
+
+\usepackage{xcolor}
+\input{color_palette.tex}
+
+
+\tikzfading[
+  name=fade out,
+  inner color=transparent!0,
+  outer color=transparent!100
+]
+
+\begin{document}
+  \begin{tikzpicture}[
+      >=latex,
+      circFade/.style={color=#1, path fading=fade out,},
+      gamma/.style={
+        snake=snake,
+        jetblue1,
+        thick,
+        line cap=round
+      },
+      radio/.style={
+        agnyellow!60!red,
+        decorate,
+        decoration={snake, segment length=1cm},
+        thick,
+        line cap=round
+      },
+      neutrino/.style={
+        plantygreen!80!white,
+        dashed,
+        thick,
+        line cap=round
+      },
+    ]
+    \fill [spaceblue] (0,0) rectangle (16,9);
+    \input{stars.tex}
+    \clip (0,0) rectangle (16,9);
+
+    %% Earth
+    \coordinate (Earth) at (14, 2);
+    \def\Escale{1.3}
+    \begin{scope}[scale=\Escale]
+      \fill [spaceblue!95!marbleblue, opacity=0.8] (Earth) circle (3.2cm);
+      \fill [spaceblue!80!marbleblue, opacity=0.8] (Earth) circle (2.7cm);
+      \fill [spaceblue!60!marbleblue, opacity=0.8] (Earth) circle (2.2cm);
+      \fill [circFade=marbleblue!10!white] (Earth) circle (1.8cm);
+      \fill [marbleblue] (Earth) circle (1.5cm);
+      \fill [agnyellow] (Earth) +(10:1.5cm) arc(10:-10:1.5cm) -- +(-1,0) arc(90:-90:-0.26cm) -- cycle;
+      \fill [agnyellow] (Earth) +(-9:1.5cm) arc(-9:-40:1.5cm)
+        -- +(-0.05,0) arc(90:-5:-0.26cm)
+        -- +(0,0.17) arc(0:90:0.252cm) -- cycle;
+      \begin{scope}
+        \clip (Earth) circle (1.5cm);
+        \fill [white] ([yshift=-1.5cm]Earth) ellipse (0.7cm and 0.12cm);
+      \end{scope}
+      \fill [black, opacity=0.2] (Earth) +(80:1.5cm) arc(80:-80:1.5cm) arc(-50:50:1.928cm);
+    \end{scope}
+    
+    %% AGN
+    \coordinate (AGN) at (3, 6.6);
+    \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
+
+    %% Messengers
+    \draw [gamma] (Earth)+(120:\Escale * 2.2cm) -- ([xshift=0.5cm]AGN);
+    \draw [gamma] (Earth)+(100:\Escale * 2.8cm) -- ([xshift=0.6cm, yshift=0.25cm]AGN);
+    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- ([xshift=0.4cm, yshift=-0.3cm]AGN);
+    \draw [neutrino] ([xshift=0.5cm, yshift=-0.5cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.5cm]Earth);
+
+    \coordinate (A) at ([yshift=-0.5cm]AGN);
+    \coordinate (B) at ([xshift=2cm, yshift=-2cm]A);
+    \coordinate (C) at ([xshift=-2cm, yshift=-2cm]A);
+    \coordinate (D) at ([xshift=8cm, yshift=-4cm]A);
+
+    \draw [agnyellow!20!red, thick] (A) .. controls (B) and (C) .. (D);
+    \foreach \coord in {A, B, C, D} {
+      \node [label={[white]\coord}, fill, circle, yellow, minimum width=0.005cm] at (\coord) {};
+    }
+  \end{tikzpicture}
+\end{document}

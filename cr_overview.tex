@@ -13,12 +13,14 @@
   arrows.meta,
   bending,
   fadings,
-  snakes
+  snakes,
+  calc
 }
 
 \usepackage{xcolor}
 \input{color_palette.tex}
 
+\pgfmathsetseed{42}
 
 \tikzfading[
   name=fade out,
@@ -49,6 +51,11 @@
         thick,
         line cap=round
       },
+      proton/.style={
+        agnyellow!20!red,
+        thick,
+        line cap=round
+      }
     ]
     \fill [spaceblue] (0,0) rectangle (16,9);
     \input{stars.tex}
@@ -67,6 +74,7 @@
       \fill [agnyellow] (Earth) +(-9:1.5cm) arc(-9:-40:1.5cm)
         -- +(-0.05,0) arc(90:-5:-0.26cm)
         -- +(0,0.17) arc(0:90:0.252cm) -- cycle;
+      \draw [plantygreen, rounded corners] (Earth) +(55:1.5cm) arc(55:20:1.5cm) -- +(-0.2,0);
       \begin{scope}
         \clip (Earth) circle (1.5cm);
         \fill [white] ([yshift=-1.5cm]Earth) ellipse (0.7cm and 0.12cm);
@@ -76,22 +84,31 @@
     
     %% AGN
     \coordinate (AGN) at (3, 6.6);
-    \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
 
     %% Messengers
-    \draw [gamma] (Earth)+(120:\Escale * 2.2cm) -- ([xshift=0.5cm]AGN);
-    \draw [gamma] (Earth)+(100:\Escale * 2.8cm) -- ([xshift=0.6cm, yshift=0.25cm]AGN);
-    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- ([xshift=0.4cm, yshift=-0.3cm]AGN);
-    \draw [neutrino] ([xshift=0.5cm, yshift=-0.5cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.5cm]Earth);
+    \coordinate (gamma1) at ($(Earth)+(120:\Escale * 2.2cm)$);
+    \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(260:0.2cm)$) coordinate (gamma2a)
+      -- ($(gamma2a)+(270:0.2cm)$) coordinate (gamma3a)
+      -- ($(gamma3a)+(280:0.2cm)$);
+    \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(320:0.2cm)$) coordinate (gamma2b);
+    
+    \draw [gamma] (gamma1) -- ([xshift=0.6cm, yshift=-0.2cm]AGN);
+    \draw [gamma] ($(Earth)+(100:\Escale * 2.8cm)$) coordinate (gammaLAT) -- ([xshift=0.6cm, yshift=0.25cm]AGN);
+    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- ([xshift=0.6cm, yshift=-0.45cm]AGN);
+    \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.5cm]Earth);
+    \draw [proton] ([yshift=-0.5cm]AGN) to[out=210, in=180] (4,2)
+      to[out=0, in=270] (5,3)
+      to[out=90, in=0] (4.5,3.5)
+      to[out=180, in=90] (4,3)
+      to[out=270, in=180] (6,1)
+      to[out=0, in=270] (8,2)
+      to[out=90, in=0] (7,3)
+      to[out=180, in=90] (6,2)
+      to[out=270, in=180] (9,0.75)
+      to[bend right=5] ($(Earth)+(200:\Escale * 2.2cm)$);
 
-    \coordinate (A) at ([yshift=-0.5cm]AGN);
-    \coordinate (B) at ([xshift=2cm, yshift=-2cm]A);
-    \coordinate (C) at ([xshift=-2cm, yshift=-2cm]A);
-    \coordinate (D) at ([xshift=8cm, yshift=-4cm]A);
-
-    \draw [agnyellow!20!red, thick] (A) .. controls (B) and (C) .. (D);
-    \foreach \coord in {A, B, C, D} {
-      \node [label={[white]\coord}, fill, circle, yellow, minimum width=0.005cm] at (\coord) {};
-    }
-  \end{tikzpicture}
+    \draw [green] (gamma1) -- (Earth);
+    %% AGN
+    \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
+\end{tikzpicture}
 \end{document}

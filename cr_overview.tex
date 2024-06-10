@@ -17,6 +17,8 @@
   calc
 }
 
+\usepackage{mhchem}
+
 \usepackage{xcolor}
 \input{color_palette.tex}
 
@@ -87,30 +89,59 @@
 
     %% Messengers
     \coordinate (gamma1) at ($(Earth)+(120:\Escale * 2.2cm)$);
-    \fill [jetblue4] (gamma1) -- ($(Earth)+(110:\Escale * 1.5cm)$) arc(110:130:\Escale * 1.5cm) -- cycle;
-    % \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(260:0.2cm)$) coordinate (gamma2a)
-    %   -- ($(gamma2a)+(270:0.2cm)$) coordinate (gamma3a)
-    %   -- ($(gamma3a)+(280:0.2cm)$);
-    \draw [spaceblack, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$);
-    % \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(320:0.2cm)$) coordinate (gamma2b);
-    
+    \fill [jetblue5!90!black] (gamma1) -- ($(Earth)+(110:\Escale * 1.5cm)$) arc(110:130:\Escale * 1.5cm) -- cycle;
+    \draw [jetblue1, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$) coordinate (gamma2a)
+      (gamma2a) -- ($(gamma2a)+(280:0.2cm)$) 
+      (gamma2a) -- ($(gamma2a)+(300:0.3cm)$)
+      (gamma1) -- ($(gamma1)+(310:0.2cm)$) coordinate (gamma2b)
+      -- ($(gamma2b)+(290:0.2cm)$) coordinate (gamma3a)
+      (gamma2b) -- ($(gamma2b)+(310:0.2cm)$) coordinate (gamma3b)
+      -- ($(gamma3b)+(290:0.2cm)$)  coordinate (gamma4a) 
+      (gamma3b) -- ($(gamma3b)+(310:0.15cm)$)
+      (gamma4a) -- ($(gamma4a)+(285:0.15cm)$)
+      (gamma4a) -- ($(gamma4a)+(305:0.2cm)$);
+
     \draw [gamma] (gamma1) -- ([xshift=0.6cm, yshift=-0.2cm]AGN);
-    \draw [gamma] ($(Earth)+(100:\Escale * 2.8cm)$) coordinate (gammaLAT) -- ([xshift=0.6cm, yshift=0.25cm]AGN);
+    \draw [gamma] ($(Earth)+(100:\Escale * 3cm)$) coordinate (gammaLAT) -- ([xshift=0.7cm, yshift=0.2cm]AGN);
+
     \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- ([xshift=0.6cm, yshift=-0.45cm]AGN);
-    \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.5cm]Earth);
+    \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
     \draw [proton] ([yshift=-0.5cm]AGN) to[out=210, in=180] (4,2)
       to[out=0, in=270] (5,3)
       to[out=90, in=0] (4.5,3.5)
       to[out=180, in=90] (4,3)
-      to[out=270, in=180] (6,1)
+      to[out=270, in=180] node[midway, below, xshift=0.7cm, yshift=-0.5cm] {$p,\,\alpha,\,\ce{Fe},\dots$} (6,1)
       to[out=0, in=270] (8,2)
       to[out=90, in=0] (7,3)
       to[out=180, in=90] (6,2)
       to[out=270, in=180] (9,0.75)
-      to[bend right=5] ($(Earth)+(200:\Escale * 2.2cm)$);
+      to[bend right=5] ($(Earth)+(200:\Escale * 2.2cm)$) coordinate (CR);
 
-    % \draw [green] (gamma1) -- (Earth);
+    \foreach \ang/\len/\name in {-15/0.6/CRa, 0/0.4/CRb, 10/0.6/CRc, 20/0.5/CRd, 40/0.3/CRe} {
+      \draw [proton, thin] (CR) -- ($(CR)+(\ang:\len cm)$) coordinate (\name);
+    }
+    \draw [proton, thin] (CRa) -- ($(Earth)+(210:\Escale * 1.5cm)$)
+    (CRa) -- ($(Earth)+(220:\Escale * 1.5cm)$);
+    \draw [proton, thin] (CRb) -- ($(CRb)+(-10:0.3cm)$)
+    (CRb) -- ($(CRb)+(5:0.4cm)$);
+    \draw [proton, thin] (CRc) -- ($(Earth)+(207.5:\Escale * 1.5cm)$)
+    (CRc) -- ($(Earth)+(202.5:\Escale * 1.5cm)$);
+
+    \draw [proton, thin] (CRe) -- ($(Earth)+(200:\Escale * 1.5cm)$)
+    (CRe) -- ($(CRe)+(25:0.4cm)$);
+
+
     %% AGN
     \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
+
+
+    %% IceCube
+    \coordinate (IC) at ($(Earth)+(-90:\Escale * 1.4cm)$);
+    \foreach \xshift in {-0.2, -0.1, 0, 0.1, 0.2} {
+      \draw [spaceblack] ([xshift=\xshift cm]IC) -- +(0, 0.6);
+      \foreach \yshift in {0.1, 0.2, 0.3, 0.4, 0.5} {
+        \fill [spaceblack] ([xshift=\xshift cm, yshift=\yshift cm]IC) circle (0.025cm);
+      }
+    }
 \end{tikzpicture}
 \end{document}

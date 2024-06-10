@@ -74,7 +74,7 @@
       \fill [agnyellow] (Earth) +(-9:1.5cm) arc(-9:-40:1.5cm)
         -- +(-0.05,0) arc(90:-5:-0.26cm)
         -- +(0,0.17) arc(0:90:0.252cm) -- cycle;
-      \draw [plantygreen, rounded corners] (Earth) +(55:1.5cm) arc(55:20:1.5cm) -- +(-0.2,0);
+      % \draw [plantygreen, rounded corners] (Earth) +(55:1.5cm) arc(55:20:1.5cm) -- +(-0.2,0);
       \begin{scope}
         \clip (Earth) circle (1.5cm);
         \fill [white] ([yshift=-1.5cm]Earth) ellipse (0.7cm and 0.12cm);
@@ -87,10 +87,12 @@
 
     %% Messengers
     \coordinate (gamma1) at ($(Earth)+(120:\Escale * 2.2cm)$);
-    \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(260:0.2cm)$) coordinate (gamma2a)
-      -- ($(gamma2a)+(270:0.2cm)$) coordinate (gamma3a)
-      -- ($(gamma3a)+(280:0.2cm)$);
-    \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(320:0.2cm)$) coordinate (gamma2b);
+    \fill [jetblue4] (gamma1) -- ($(Earth)+(110:\Escale * 1.5cm)$) arc(110:130:\Escale * 1.5cm) -- cycle;
+    % \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(260:0.2cm)$) coordinate (gamma2a)
+    %   -- ($(gamma2a)+(270:0.2cm)$) coordinate (gamma3a)
+    %   -- ($(gamma3a)+(280:0.2cm)$);
+    \draw [spaceblack, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$);
+    % \draw [jetblue3, line cap=round] (gamma1) -- ($(gamma1)+(320:0.2cm)$) coordinate (gamma2b);
     
     \draw [gamma] (gamma1) -- ([xshift=0.6cm, yshift=-0.2cm]AGN);
     \draw [gamma] ($(Earth)+(100:\Escale * 2.8cm)$) coordinate (gammaLAT) -- ([xshift=0.6cm, yshift=0.25cm]AGN);
@@ -107,7 +109,7 @@
       to[out=270, in=180] (9,0.75)
       to[bend right=5] ($(Earth)+(200:\Escale * 2.2cm)$);
 
-    \draw [green] (gamma1) -- (Earth);
+    % \draw [green] (gamma1) -- (Earth);
     %% AGN
     \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
 \end{tikzpicture}

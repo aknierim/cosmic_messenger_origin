@@ -211,14 +211,48 @@
     %% IACT
     \begin{scope}[scale=\Escale]
       \draw [telescope] ($(Earth)+(130:1cm)$) coordinate (baseR) -- ++(-0.4,0) coordinate (baseL);
-      \draw [telescope] ([xshift=0.07cm]baseL) -- +(0.07, 0.15);
-      \draw [telescope] ([xshift=-0.07cm]baseR) -- +(-0.07, 0.15);
-      \draw [telescope] ([xshift=-0.07cm]baseR) +(-0.07, 0.15) arc(0:180:0.06cm);
-      \coordinate (mpoint) at ($(baseR)+(-0.2,0.21)$);
-      \begin{scope}
-        \draw [telescope] (mpoint) arc(-90:-78:1cm);
-        \draw [telescope] (mpoint) arc(-90:-102:1cm);
+      \draw [telescope] ([xshift=0.07cm]baseL) -- +(0.07, 0.15) coordinate (mountL);
+      \draw [telescope] ([xshift=-0.07cm]baseR) -- +(-0.07, 0.15) coordinate (mountR);
+      \draw [telescope] (mountR) arc(0:180:0.06cm);
+      \draw [telescope] (mountL) -- (mountR);
+      \draw [telescope] (mountL) -- ([xshift=-0.07cm]baseR);
+      \draw [telescope] (mountR) -- ([xshift=0.07cm]baseL);
+      \coordinate (mpoint) at ($(baseR)+(-0.22,0.23)$);
+      \begin{scope}[rotate around={45:(mpoint)}]
+        \fill [draw=spaceblack, telescope, line join=round] (mpoint) arc(-90:-78:1cm) coordinate (dishR)
+          -- +(-0.01, -0.05) coordinate (dishRlower)
+          -- ($(dishRlower)+(-0.2, 0)$);
+        \fill [draw=spaceblack, telescope, line join=round] (mpoint) arc(-90:-102:1cm) coordinate (dishL)
+          -- +(0.01, -0.05) coordinate (dishLlower)
+          -- ($(dishLlower)+(0.2, 0)$);
+        \draw [telescope] (dishR) to[bend right=10] ([xshift=0.05cm, yshift=0.3cm]mpoint) coordinate (camR);
+        \draw [telescope] (dishL) to[bend left=10] ([xshift=-0.05cm, yshift=0.3cm]mpoint) coordinate (camL);
+        \fill [spaceblack, rounded corners=0.2pt] ([yshift=-0.025cm]camL) rectangle ([yshift=0.025cm]camR);
+        \foreach \pos in {0.05, 0.1} {
+          \draw [telescope, very thin] ([xshift=\pos cm, yshift=-0.01cm]dishL) to[bend left=10] (camL);
+          \draw [telescope, very thin] ([xshift=-\pos cm, yshift=-0.01cm]dishR) to[bend right=10] (camR);
+        }
+        \draw [telescope, very thin] ([xshift=0.02cm]camL) to[bend right=5] +(-0.02,-0.3);
+        \draw [telescope, very thin] ([xshift=-0.02cm]camR) to[bend left=5] +(0.02,-0.3);
       \end{scope}
     \end{scope}
+
+    %% Fermi
+    \draw [white, fill=spaceblack!60, line join=round] ([xshift=0.2cm]gammaLAT) coordinate (LAT)
+      -- ($(LAT)+(-30:0.3cm)$) coordinate (LATce)
+      -- +(-0.06, -0.1) coordinate (LATse)
+      -- ($(LATse)+(150:0.3cm)$) coordinate (LATsw) -- cycle;
+    \draw [white, fill=spaceblack!60, line join=round] (LAT) -- ($(LAT)+(100:0.07cm)$) coordinate (LATnw)
+      -- ($(LATnw)+(-30:0.3cm)$) coordinate (LATne)
+      -- ($(LATne)+(-80:0.07cm)$) -- cycle;
+    \draw [white, fill=spaceblack!60, line join=round] (LAT) -- (LATnw) -- +(-0.06, -0.1) coordinate (LATcw)
+      -- (LATsw) -- cycle;
+    \draw [white, line cap=round] ([xshift=0.1cm,yshift=-0.11cm]LAT) coordinate (solar1)
+      -- ($(solar1)+(-55:0.07cm)$) coordinate (solar1a);
+    \draw [white, line cap=round] (solar1) -- ($(solar1)+(-185:0.07cm)$) coordinate (solar1b);
+    \draw [white, fill=spaceblue!70!blue!70!white, line join=round] (solar1a) -- ($(solar1a)+(-80:0.5cm)$) coordinate (solar1c)
+      -- ($(solar1c)+(150:0.14cm)$) coordinate (solar1d) -- (solar1b) -- cycle;
+    \draw [white, fill=spaceblue!70!blue!70!white, line join=round] ([xshift=-0.01cm, yshift=0.155cm]solar1b) coordinate (solar2a) -- ($(solar2a)+(100:0.35cm)$) coordinate (solar2c)
+      -- ($(solar2c)+(-30:0.11cm)$) coordinate (solar2d) -- ($(solar2d)+(-80:0.35cm)$) -- cycle;
 \end{tikzpicture}
 \end{document}

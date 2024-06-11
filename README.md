@@ -16,9 +16,9 @@ to build the graphic. An installation of TeXLive is required.
 ## Citation
 If you want to include this graphic in a project or scientific work, refer to the Zenodo DOI above or cite it as follows:
 ```
-@software{anno_knierim_2024_11580794,
+@misc{anno_knierim_2024_11580794,
   author       = {Anno Knierim},
-  title        = {{Cosmic Messengers}},
+  title        = {Cosmic Messengers},
   month        = jun,
   year         = 2024,
   publisher    = {Zenodo},

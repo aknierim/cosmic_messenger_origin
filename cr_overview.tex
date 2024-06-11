@@ -59,7 +59,8 @@
         agnyellow!20!red,
         thick,
         line cap=round
-      }
+      },
+      telescope/.style={spaceblack, thick, line cap=round},
     ]
     \fill [spaceblue] (0,0) rectangle (16,9);
     \input{stars.tex}
@@ -150,7 +151,7 @@
     \draw [gamma] (6.8,6.2) -- ([xshift=0.65cm]AGN);
     \draw [gamma] ($(Earth)+(100:\Escale * 3.3cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ([xshift=0.7cm, yshift=0.2cm]AGN);
 
-    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- node [midway, above, rotate=-23, yshift=0.1cm] {radio} ([xshift=0.6cm, yshift=-0.45cm]AGN);
+    \draw [radio] (Earth)+(160:\Escale * 1.38cm) -- node [midway, above, rotate=-23, yshift=0.1cm] {radio} ([xshift=0.6cm, yshift=-0.45cm]AGN);
     \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
     \draw [proton] ([yshift=-0.5cm]AGN) to[out=210, in=180] (4,2)
       to[out=0, in=270] (5,3)
@@ -192,12 +193,31 @@
 
     %% Radio antenna
     \begin{scope}[scale=\Escale]
-      \draw [spaceblack, thick] ($(Earth)+(168:1.1cm)$) -- ++(-0.3,0) -- +(0.15,0.25) coordinate(mpoint) -- cycle;
-      \begin{scope}%[rotate around={60:(mpoint)}]
-        \draw [spaceblack, thick] (mpoint) arc(-90:-30:0.3cm);
-        \draw [spaceblack, thick] (mpoint) arc(-90:-150:0.3cm);
-        \draw [spaceblack, thick] ([yshift=0.3cm]mpoint) -- +(0.2,-0.23);
-        \draw [spaceblack, thick] ([yshift=0.3cm]mpoint) -- +(-0.2,-0.23);
+      \draw [telescope, line join=round] ($(Earth)+(170:1.1cm)$) -- ++(-0.25,0) -- +(0.125,0.2) coordinate(mpoint) -- cycle;
+      \begin{scope}[rotate around={60:(mpoint)}]
+        \draw [telescope] (mpoint) arc(-90:-40:0.3cm) coordinate (dishr);
+        \draw [telescope] (mpoint) arc(-90:-140:0.3cm) coordinate (dishl);
+        \draw [telescope] (mpoint) arc(-90:0:0.1cm);
+        \draw [telescope] (mpoint) arc(-90:-180:0.1cm);
+        \draw [telescope] (mpoint) -- +(0, 0.1);
+        \draw [telescope] (dishl) -- (dishr);
+        \draw [telescope] ([yshift=0.25cm]mpoint) -- +(0.1,-0.13);
+        \draw [telescope] ([yshift=0.25cm]mpoint) -- +(-0.1,-0.13);
+        \fill [spaceblack, rounded corners=0.2pt] ([xshift=-0.025cm, yshift=0.23cm]mpoint) rectangle ([xshift=0.025cm, yshift=0.27cm]mpoint);
+      \end{scope}
+    \end{scope}
+
+
+    %% IACT
+    \begin{scope}[scale=\Escale]
+      \draw [telescope] ($(Earth)+(130:1cm)$) coordinate (baseR) -- ++(-0.4,0) coordinate (baseL);
+      \draw [telescope] ([xshift=0.07cm]baseL) -- +(0.07, 0.15);
+      \draw [telescope] ([xshift=-0.07cm]baseR) -- +(-0.07, 0.15);
+      \draw [telescope] ([xshift=-0.07cm]baseR) +(-0.07, 0.15) arc(0:180:0.06cm);
+      \coordinate (mpoint) at ($(baseR)+(-0.2,0.21)$);
+      \begin{scope}
+        \draw [telescope] (mpoint) arc(-90:-78:1cm);
+        \draw [telescope] (mpoint) arc(-90:-102:1cm);
       \end{scope}
     \end{scope}
 \end{tikzpicture}

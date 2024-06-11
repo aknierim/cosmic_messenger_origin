@@ -33,9 +33,11 @@
 \begin{document}
   \begin{tikzpicture}[
       >=latex,
+      every node/.style={font=\large},
       circFade/.style={color=#1, path fading=fade out,},
       gamma/.style={
-        snake=snake,
+        decorate,
+        decoration={snake, amplitude=0.05cm},
         jetblue1,
         thick,
         line cap=round
@@ -63,6 +65,7 @@
     \input{stars.tex}
     \clip (0,0) rectangle (16,9);
 
+
     %% Earth
     \coordinate (Earth) at (14, 2);
     \def\Escale{1.3}
@@ -72,24 +75,66 @@
       \fill [spaceblue!60!marbleblue, opacity=0.8] (Earth) circle (2.2cm);
       \fill [circFade=marbleblue!10!white] (Earth) circle (1.8cm);
       \fill [marbleblue] (Earth) circle (1.5cm);
-      \fill [agnyellow] (Earth) +(10:1.5cm) arc(10:-10:1.5cm) -- +(-1,0) arc(90:-90:-0.26cm) -- cycle;
-      \fill [agnyellow] (Earth) +(-9:1.5cm) arc(-9:-40:1.5cm)
+      \fill [plantygreen] ($(Earth)+(35:1.5cm)$) arc(35:15:1.5cm) -- +(-0.8,0) arc(90:-90:-0.24cm) -- cycle;
+      \fill [plantygreen] (Earth) +(10:1.5cm) arc(10:-10:1.5cm) -- +(-1,0) arc(90:-90:-0.26cm) -- cycle;
+      \fill [plantygreen] (Earth) +(-9:1.5cm) arc(-9:-40:1.5cm)
         -- +(-0.05,0) arc(90:-5:-0.26cm)
         -- +(0,0.17) arc(0:90:0.252cm) -- cycle;
-      % \draw [plantygreen, rounded corners] (Earth) +(55:1.5cm) arc(55:20:1.5cm) -- +(-0.2,0);
+      \fill [plantygreen] ($(Earth)+(135:1.5cm)$) arc(135:155:1.5cm) -- +(0.8,0) arc(-90:90:0.21cm) -- cycle;
+      \fill [plantygreen] ($(Earth)+(150:1.5cm)$) arc(150:175:1.5cm) -- +(0.5,0) arc(-90:2:0.25cm)  arc(180:90:0.25cm)-- cycle;
+      \fill [plantygreen] ($(Earth)+(185:1.5cm)$) arc(185:205:1.5cm) -- +(0.6,0) arc(-90:90:0.25cm) -- cycle;
+      \fill [plantygreen] ($(Earth)+(200:1.5cm)$) arc(200:235:1.5cm) arc(-90:0:0.1cm) -- +(0,0.41) arc (180:90:0.1cm) -- cycle;
+      \fill [plantygreen] ($(Earth)+(174.8:1.5cm)$) arc(174.8:185.2:1.5cm) -- +(0.15,0) arc(-90:-180:0.135cm) arc (180:90:0.135cm) -- cycle;
       \begin{scope}
         \clip (Earth) circle (1.5cm);
         \fill [white] ([yshift=-1.5cm]Earth) ellipse (0.7cm and 0.12cm);
+        \fill [white] ([yshift=1.5cm]Earth) ellipse (0.3cm and 0.08cm);
       \end{scope}
       \fill [black, opacity=0.2] (Earth) +(80:1.5cm) arc(80:-80:1.5cm) arc(-50:50:1.928cm);
     \end{scope}
-    
+
+
     %% AGN
     \coordinate (AGN) at (3, 6.6);
 
+
+    %% Gas cloud
+    \coordinate (GC1) at (6.3,5);
+    \coordinate (GC2) at (7.2,6);
+    \coordinate (GC3) at (7,6.8);
+    \coordinate (GC4) at (6.5,6.5);
+    \coordinate (GC5) at (6,6);
+    \coordinate (GC6) at (7,5.2);
+    \coordinate (GC7) at (6.45,5.9);
+
+    \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
+      \fill [circFade=red!50!blue!80!white, opacity=0.6] (\coord) circle (\radius cm + 0.3cm);
+    }
+    \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
+      \fill [cosmicdeeppurple] (\coord) circle (\radius);
+    }
+    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
+      \fill [cosmicpurple] (\coord) circle (\radius cm);
+    }
+    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
+      \fill [red!50!blue] (\coord) circle (\radius cm - 0.1 cm);
+    }
+    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
+      \fill [red!40!blue] (\coord) circle (\radius cm - 0.2cm);
+    }
+    \fill [red!40!blue] (6.85,6.5) circle (0.3cm);
+    \fill [red!40!blue] (6.85,5.5) circle (0.3cm);
+
+    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
+      \fill [red!30!blue!70!white] (\coord) circle (\radius cm - 0.3cm);
+    }
+    \fill [red!30!blue!70!white] (6.85,6.5) circle (0.2cm);
+    \fill [red!30!blue!70!white] (6.69,5.55) circle (0.4cm);
+
+
     %% Messengers
-    \coordinate (gamma1) at ($(Earth)+(120:\Escale * 2.2cm)$);
-    \fill [jetblue5!90!black] (gamma1) -- ($(Earth)+(110:\Escale * 1.5cm)$) arc(110:130:\Escale * 1.5cm) -- cycle;
+    \coordinate (gamma1) at ($(Earth)+(130:\Escale * 2.2cm)$);
+    \fill [jetblue5!90!black] (gamma1) -- ($(Earth)+(125:\Escale * 1.5cm)$) arc(125:145:\Escale * 1.5cm) -- cycle;
     \draw [jetblue1, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$) coordinate (gamma2a)
       (gamma2a) -- ($(gamma2a)+(280:0.2cm)$) 
       (gamma2a) -- ($(gamma2a)+(300:0.3cm)$)
@@ -102,9 +147,10 @@
       (gamma4a) -- ($(gamma4a)+(305:0.2cm)$);
 
     \draw [gamma] (gamma1) -- ([xshift=0.6cm, yshift=-0.2cm]AGN);
-    \draw [gamma] ($(Earth)+(100:\Escale * 3cm)$) coordinate (gammaLAT) -- ([xshift=0.7cm, yshift=0.2cm]AGN);
+    \draw [gamma] (6.8,6.2) -- ([xshift=0.65cm]AGN);
+    \draw [gamma] ($(Earth)+(100:\Escale * 3.3cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ([xshift=0.7cm, yshift=0.2cm]AGN);
 
-    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- ([xshift=0.6cm, yshift=-0.45cm]AGN);
+    \draw [radio] (Earth)+(160:\Escale * 1.5cm) -- node [midway, above, rotate=-23, yshift=0.1cm] {radio} ([xshift=0.6cm, yshift=-0.45cm]AGN);
     \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
     \draw [proton] ([yshift=-0.5cm]AGN) to[out=210, in=180] (4,2)
       to[out=0, in=270] (5,3)
@@ -143,5 +189,16 @@
         \fill [spaceblack] ([xshift=\xshift cm, yshift=\yshift cm]IC) circle (0.025cm);
       }
     }
+
+    %% Radio antenna
+    \begin{scope}[scale=\Escale]
+      \draw [spaceblack, thick] ($(Earth)+(168:1.1cm)$) -- ++(-0.3,0) -- +(0.15,0.25) coordinate(mpoint) -- cycle;
+      \begin{scope}%[rotate around={60:(mpoint)}]
+        \draw [spaceblack, thick] (mpoint) arc(-90:-30:0.3cm);
+        \draw [spaceblack, thick] (mpoint) arc(-90:-150:0.3cm);
+        \draw [spaceblack, thick] ([yshift=0.3cm]mpoint) -- +(0.2,-0.23);
+        \draw [spaceblack, thick] ([yshift=0.3cm]mpoint) -- +(-0.2,-0.23);
+      \end{scope}
+    \end{scope}
 \end{tikzpicture}
 \end{document}

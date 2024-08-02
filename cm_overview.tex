@@ -94,66 +94,47 @@
       \fill [black, opacity=0.2] (Earth) +(80:1.5cm) arc(80:-80:1.5cm) arc(-50:50:1.928cm);
     \end{scope}
 
-
     %% AGN
-    \coordinate (AGN) at (3, 6.6);
-
+    \coordinate (AGN) at (2, 7.5);
 
     %% Gas cloud
-    \coordinate (GC1) at (6.3,5);
-    \coordinate (GC2) at (7.2,6);
-    \coordinate (GC3) at (7,6.8);
-    \coordinate (GC4) at (6.5,6.5);
-    \coordinate (GC5) at (6,6);
-    \coordinate (GC6) at (7,5.2);
-    \coordinate (GC7) at (6.45,5.9);
+    \begin{scope}[rotate around={90:(6.6,6.5)}, scale=0.75, xshift=1cm, yshift=0.5cm]
+      \coordinate (GC1) at (6.3,5);
+      \coordinate (GC2) at (7.2,6);
+      \coordinate (GC3) at (7,6.8);
+      \coordinate (GC4) at (6.5,6.5);
+      \coordinate (GC5) at (6,6);
+      \coordinate (GC6) at (7,5.2);
+      \coordinate (GC7) at (6.45,5.9);
 
-    \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
-      \fill [circFade=red!50!blue!80!white, opacity=0.6] (\coord) circle (\radius cm + 0.3cm);
-    }
-    \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
-      \fill [cosmicdeeppurple] (\coord) circle (\radius);
-    }
-    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
-      \fill [cosmicpurple] (\coord) circle (\radius cm);
-    }
-    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
-      \fill [red!50!blue] (\coord) circle (\radius cm - 0.1 cm);
-    }
-    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
-      \fill [red!40!blue] (\coord) circle (\radius cm - 0.2cm);
-    }
-    \fill [red!40!blue] (6.85,6.5) circle (0.3cm);
-    \fill [red!40!blue] (6.85,5.5) circle (0.3cm);
+      \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
+        \fill [circFade=red!50!blue!80!white, opacity=0.6] (\coord) circle (\radius cm + 0.3cm);
+      }
+      \foreach \coord/\radius in {GC1/1, GC2/0.8, GC3/0.5, GC4/0.7, GC5/0.35, GC6/0.5, GC7/0.5} {
+        \fill [cosmicdeeppurple] (\coord) circle (\radius);
+      }
+      \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
+        \fill [cosmicpurple] (\coord) circle (\radius cm);
+      }
+      \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC5/0.25, GC6/0.4, GC7/0.6} {
+        \fill [red!50!blue] (\coord) circle (\radius cm - 0.1 cm);
+      }
+      \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
+        \fill [red!40!blue] (\coord) circle (\radius cm - 0.2cm);
+      }
+      \fill [red!40!blue] (6.85,6.5) circle (0.3cm);
+      \fill [red!40!blue] (6.85,5.5) circle (0.3cm);
 
-    \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
-      \fill [red!30!blue!70!white] (\coord) circle (\radius cm - 0.3cm);
-    }
-    \fill [red!30!blue!70!white] (6.85,6.5) circle (0.2cm);
-    \fill [red!30!blue!70!white] (6.69,5.55) circle (0.4cm);
+      \foreach \coord/\radius in {GC1/0.9, GC2/0.7, GC3/0.4, GC4/0.6, GC6/0.4, GC7/0.6} {
+        \fill [red!30!blue!70!white] (\coord) circle (\radius cm - 0.3cm);
+      }
+      \fill [red!30!blue!70!white] (6.85,6.5) circle (0.2cm);
+      \fill [red!30!blue!70!white] (6.69,5.55) circle (0.4cm);
+    \end{scope}
 
 
-    %% Messengers
-    \coordinate (gamma1) at ($(Earth)+(130:\Escale * 2.2cm)$);
-    \fill [jetblue5!90!black] (gamma1) -- ($(Earth)+(125:\Escale * 1.5cm)$) arc(125:145:\Escale * 1.5cm) -- cycle;
-    \draw [jetblue1, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$) coordinate (gamma2a)
-      (gamma2a) -- ($(gamma2a)+(280:0.2cm)$) 
-      (gamma2a) -- ($(gamma2a)+(300:0.3cm)$)
-      (gamma1) -- ($(gamma1)+(310:0.2cm)$) coordinate (gamma2b)
-      -- ($(gamma2b)+(290:0.2cm)$) coordinate (gamma3a)
-      (gamma2b) -- ($(gamma2b)+(310:0.2cm)$) coordinate (gamma3b)
-      -- ($(gamma3b)+(290:0.2cm)$)  coordinate (gamma4a) 
-      (gamma3b) -- ($(gamma3b)+(310:0.15cm)$)
-      (gamma4a) -- ($(gamma4a)+(285:0.15cm)$)
-      (gamma4a) -- ($(gamma4a)+(305:0.2cm)$);
-
-    \draw [gamma] (gamma1) -- ([xshift=0.6cm, yshift=-0.2cm]AGN);
-    \draw [gamma] (6.8,6.2) -- ([xshift=0.65cm]AGN);
-    \draw [gamma] ($(Earth)+(100:\Escale * 3.3cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ([xshift=0.7cm, yshift=0.2cm]AGN);
-
-    \draw [radio] (Earth)+(160:\Escale * 1.38cm) -- node [midway, above, rotate=-23, yshift=0.1cm] {radio} ([xshift=0.6cm, yshift=-0.45cm]AGN);
-    \draw [neutrino] ([xshift=0.7cm, yshift=-0.75cm]AGN) -- node [midway, below] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
-    \draw [proton] ([yshift=-0.5cm]AGN) to[out=210, in=180] (4,2)
+  %% Messengers -- Proton
+  \draw [proton] ($(AGN)+(-27:1cm)$) to[out=-25, in=180] (4,2)
       to[out=0, in=270] (5,3)
       to[out=90, in=0] (4.5,3.5)
       to[out=180, in=90] (4,3)
@@ -164,6 +145,32 @@
       to[out=270, in=180] (9,0.75)
       to[bend right=5] ($(Earth)+(200:\Escale * 2.2cm)$) coordinate (CR);
 
+    %% AGN
+    \node [rotate around={-115:(AGN)}] at (AGN) {\includegraphics[height=12cm]{build/black_hole.pdf}};
+
+    %% Messengers -- Gammas, Neutrinos, Radio
+    \coordinate (gamma1) at ($(Earth)+(155:\Escale * 2.2cm)$);
+    \fill [jetblue5!90!black] (gamma1) -- ($(Earth)+(167:\Escale * 1.5cm)$) arc(167:147:\Escale * 1.5cm) -- cycle;
+    \begin{scope}[rotate around={35:(gamma1)}]
+    \draw [jetblue1, line cap=round] (gamma1) -- ($(gamma1)+(290:0.4cm)$) coordinate (gamma2a)
+      (gamma2a) -- ($(gamma2a)+(280:0.2cm)$)
+      (gamma2a) -- ($(gamma2a)+(300:0.3cm)$)
+      (gamma1) -- ($(gamma1)+(310:0.2cm)$) coordinate (gamma2b)
+      -- ($(gamma2b)+(290:0.2cm)$) coordinate (gamma3a)
+      (gamma2b) -- ($(gamma2b)+(310:0.2cm)$) coordinate (gamma3b)
+      -- ($(gamma3b)+(290:0.2cm)$)  coordinate (gamma4a)
+      (gamma3b) -- ($(gamma3b)+(310:0.15cm)$)
+      (gamma4a) -- ($(gamma4a)+(285:0.15cm)$)
+      (gamma4a) -- ($(gamma4a)+(305:0.2cm)$);
+    \end{scope}
+
+    \draw [gamma] (gamma1) -- ($(AGN)+(-25:0.85cm)$);
+    \draw [gamma] (8.6,5.7) -- ($(AGN)+(-25:0.85cm)$);
+    \draw [gamma] ($(Earth)+(100:\Escale * 3.3cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ($(AGN)+(-25:0.85cm)$);
+
+    \draw [radio] (Earth)+(55:\Escale * 0.9cm) -- node [midway, above, rotate=-23, xshift=2.5cm, yshift=0.2cm] {radio} ($(AGN)+(-25:0.75cm)$);
+    \draw [neutrino] ($(AGN)+(-25:0.7cm)$) -- node [midway, below, yshift=-0.1cm] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
+   
     \foreach \ang/\len/\name in {-15/0.6/CRa, 0/0.4/CRb, 10/0.6/CRc, 20/0.5/CRd, 40/0.3/CRe} {
       \draw [proton, thin] (CR) -- ($(CR)+(\ang:\len cm)$) coordinate (\name);
     }
@@ -178,10 +185,6 @@
     (CRe) -- ($(CRe)+(25:0.4cm)$);
 
 
-    %% AGN
-    \node [rotate around={-55:(AGN)}] at (AGN) {\includegraphics[height=7cm]{build/black_hole.pdf}};
-
-
     %% IceCube
     \coordinate (IC) at ($(Earth)+(-90:\Escale * 1.4cm)$);
     \foreach \xshift in {-0.2, -0.1, 0, 0.1, 0.2} {
@@ -191,9 +194,10 @@
       }
     }
 
+
     %% Radio antenna
     \begin{scope}[scale=\Escale]
-      \draw [telescope, line join=round] ($(Earth)+(170:1.1cm)$) -- ++(-0.25,0) -- +(0.125,0.2) coordinate(mpoint) -- cycle;
+      \draw [telescope, line join=round] ($(Earth)+(33:0.9cm)$) -- ++(-0.25,0) -- +(0.125,0.2) coordinate(mpoint) -- cycle;
       \begin{scope}[rotate around={60:(mpoint)}]
         \draw [telescope] (mpoint) arc(-90:-40:0.3cm) coordinate (dishr);
         \draw [telescope] (mpoint) arc(-90:-140:0.3cm) coordinate (dishl);
@@ -210,7 +214,7 @@
 
     %% IACT
     \begin{scope}[scale=\Escale]
-      \draw [telescope] ($(Earth)+(130:1cm)$) coordinate (baseR) -- ++(-0.4,0) coordinate (baseL);
+      \draw [telescope] ($(Earth)+(165:1.05cm)$) coordinate (baseR) -- ++(-0.4,0) coordinate (baseL);
       \draw [telescope] ([xshift=0.07cm]baseL) -- +(0.07, 0.15) coordinate (mountL);
       \draw [telescope] ([xshift=-0.07cm]baseR) -- +(-0.07, 0.15) coordinate (mountR);
       \draw [telescope] (mountR) arc(0:180:0.06cm);

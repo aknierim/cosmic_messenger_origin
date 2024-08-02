@@ -137,32 +137,32 @@
 
 
     %% JETS
-    \coordinate (UpperJetOrigin) at ([xshift=0.2cm, yshift=0.9cm]AGN);
+    \coordinate (UpperJetOrigin) at ([yshift=0.9cm]AGN);
     \fill [
       jetblue1,
       path fading=north,
     ] (UpperJetOrigin)
-      to[bend right=10] ([yshift=4.5cm]UpperJetOrigin)
-      arc(20:200:0.5cm) to[bend left=10] (UpperJetOrigin);
+      to[bend right=0] ([xshift=0.5cm, yshift=4.5cm]UpperJetOrigin)
+      arc(-10:190:0.5cm) to[bend left=0] (UpperJetOrigin);
     \fill [
       jetblue1,
       path fading=north,
     ] (UpperJetOrigin)
-      to[bend right=10] ([xshift=-0.1cm, yshift=4cm]UpperJetOrigin)
-      arc(20:200:0.25cm) to[bend left=10] (UpperJetOrigin);
+      -- ([xshift=0.25cm, yshift=4cm]UpperJetOrigin)
+      arc(-10:190:0.25cm) -- (UpperJetOrigin);
 
-    \coordinate (LowerJetOrigin) at ([xshift=-0.2cm, yshift=-0.9cm]AGN);
+    \coordinate (LowerJetOrigin) at ([yshift=-0.9cm]AGN);
     \fill [
       jetblue1,
       path fading=south,
     ] (LowerJetOrigin)
-      to[bend right=10] ([xshift=-0.25cm, yshift=-4.5cm]LowerJetOrigin)
-      arc(20:200:-0.5cm) to[bend left=10] (LowerJetOrigin);
+      -- ([xshift=-0.5cm, yshift=-4.5cm]LowerJetOrigin)
+      arc(-10:190:-0.5cm) -- (LowerJetOrigin);
     \fill [
       jetblue1,
       path fading=south,
     ] (LowerJetOrigin)
-      to[bend right=10] ([xshift=-0.1cm, yshift=-4cm]LowerJetOrigin)
-      arc(20:200:-0.25cm) to[bend left=10] (LowerJetOrigin);
+      -- ([xshift=-0.25cm, yshift=-4cm]LowerJetOrigin)
+      arc(-10:190:-0.25cm) -- (LowerJetOrigin);
   \end{tikzpicture}
 \end{document}

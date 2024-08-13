@@ -1,5 +1,18 @@
 TeXInputs = TEXINPUTS=.:
 
+
+define inksvg
+	inkscape \
+				--pdf-poppler \
+				--export-type=svg \
+				--export-text-to-path \
+				--export-area-drawing \
+				--export-filename=$(2) \
+				$(1)
+endef
+
+
+
 all: build/cm_overview.pdf
 
 build/cm_overview.pdf: FORCE build/black_hole.pdf | build
@@ -13,6 +26,9 @@ preview: FORCE build/black_hole.pdf | build
 
 preview_black_hole:
 	$(TeXInputs) latexmk -r ./latexmkrc -pvc black_hole.tex
+
+build/cm_overview.svg: build/cm_overview.pdf
+	$(call inksvg,$<,$@)
 
 FORCE:
 

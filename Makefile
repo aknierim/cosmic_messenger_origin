@@ -4,7 +4,7 @@ TeXInputs = TEXINPUTS=.:
 define inksvg
 	inkscape \
 				--pdf-poppler \
-				--export-type=svg \
+				--export-type=$() \
 				--export-text-to-path \
 				--export-area-drawing \
 				--export-filename=$(2) \
@@ -13,10 +13,13 @@ endef
 
 
 
-all: build/cm_overview.pdf
+all: build/cm_overview.pdf build/cm_overview_accelerator.pdf
 
-build/cm_overview.pdf: FORCE build/black_hole.pdf | build
-	$(TeXInputs) latexmk -r ./latexmkrc cm_overview.tex
+build/%.pdf: FORCE build/black_hole.pdf | build
+	$(TeXInputs) latexmk -r ./latexmkrc --jobname=$* cm_overview.tex
+
+build/%_accelerator.pdf: FORCE build/black_hole.pdf | build
+	$(TeXInputs) latexmk -r ./latexmkrc --jobname=$*_accelerator cm_overview.tex
 
 build/black_hole.pdf:
 	$(TeXInputs) latexmk -r ./latexmkrc black_hole.tex
@@ -29,6 +32,16 @@ preview_black_hole:
 
 build/cm_overview.svg: build/cm_overview.pdf
 	$(call inksvg,$<,$@)
+
+
+convert_png: build/cm_overview.png build/cm_overview_accelerator.png
+
+build/cm_overview.png: build/cm_overview.pdf
+	convert -density 600 $< $@
+
+build/cm_overview_accelerator.png: build/cm_overview_accelerator.pdf
+	convert -density 600 $< $@
+
 
 FORCE:
 

@@ -13,6 +13,12 @@ $ make [all,build/cm_overview.pdf]
 ```
 to build the graphic. An installation of TeXLive is required.
 
+> [!IMPORTANT]
+> Due to the way TikZ handles shadings, some PDF viewers do not display the shadings and color gradients
+> in this graphic. The same applies for printers. To circumvent this, please convert the PDFs to PNGs
+> using the `convert_png` target of the Makefile. Per default this will create PNGs with a DPI value of
+> 600. For higher resolutions change the value accordingly.
+
 ## Citation
 If you want to include this graphic in a project or scientific work, refer to the Zenodo DOI above or cite it as follows:
 ```

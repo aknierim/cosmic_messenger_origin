@@ -9,7 +9,7 @@ Minimalistic graphic showing the origin of various cosmic messengers.
 ## Usage
 In the root directory, call
 ```
-$ make [all,build/cm_overview.pdf]
+$ make [all,build/cm_overview.pdf,build/cm_overview_accelerator.pdf]
 ```
 to build the graphic. An installation of TeXLive is required.
 

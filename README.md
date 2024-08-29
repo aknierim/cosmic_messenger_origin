@@ -23,12 +23,13 @@ to build the graphic. An installation of TeXLive is required.
 If you want to include this graphic in a project or scientific work, refer to the Zenodo DOI above or cite it as follows:
 ```
 @software{Knierim_Cosmic_Messengers_2024,
-author = {Knierim, Anno},
-doi = {10.5281/zenodo.13165204},
-month = aug,
-title = {{Cosmic Messengers}},
-url = {https://github.com/aknierim/cosmic_messenger_origin},
-version = {2.0},
-year = {2024}
+  author       = {Knierim, Anno},
+  title        = {Cosmic Messengers},
+  month        = aug,
+  year         = 2024,
+  publisher    = {Zenodo},
+  version      = {v3.0},
+  doi          = {10.5281/zenodo.13492862},
+  url          = {https://doi.org/10.5281/zenodo.13492862}
 }
 ```

@@ -1,4 +1,4 @@
-\documentclass[border=2mm]{standalone}
+\documentclass{standalone}
 
 \usepackage{fontspec}
 \setmainfont{Fira Sans}
@@ -19,6 +19,8 @@
 
 \usepackage{mhchem}
 
+\usepackage{varwidth}
+
 \usepackage{xcolor}
 \input{color_palette.tex}
 
@@ -29,6 +31,9 @@
   inner color=transparent!0,
   outer color=transparent!100
 ]
+
+\usepackage{xparse}
+\usepackage{xstring}
 
 \begin{document}
   \begin{tikzpicture}[
@@ -62,9 +67,9 @@
       },
       telescope/.style={spaceblack, thick, line cap=round},
     ]
-    \fill [spaceblue] (0,0) rectangle (16,9);
+    \fill [spaceblue] (0,-1) rectangle (19,10);
     \input{stars.tex}
-    \clip (0,0) rectangle (16,9);
+    \clip (0,-1) rectangle (19,10);
 
 
     %% Earth
@@ -166,11 +171,11 @@
 
     \draw [gamma] (gamma1) -- ($(AGN)+(-25:0.85cm)$);
     \draw [gamma] (8.6,5.7) -- ($(AGN)+(-25:0.85cm)$);
-    \draw [gamma] ($(Earth)+(100:\Escale * 3.3cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ($(AGN)+(-25:0.85cm)$);
+    \draw [gamma] ($(Earth)+(105:\Escale * 3.9cm)$) coordinate (gammaLAT) -- node[midway, above] {$\gamma$} ($(AGN)+(-25:0.85cm)$);
 
     \draw [radio] (Earth)+(55:\Escale * 0.9cm) -- node [midway, above, rotate=-23, xshift=2.5cm, yshift=0.2cm] {radio} ($(AGN)+(-25:0.75cm)$);
     \draw [neutrino] ($(AGN)+(-25:0.7cm)$) -- node [midway, below, yshift=-0.1cm] {$\nu$} ([yshift=-\Escale * 1.1cm]Earth);
-   
+
     \foreach \ang/\len/\name in {-15/0.6/CRa, 0/0.4/CRb, 10/0.6/CRc, 20/0.5/CRd, 40/0.3/CRe} {
       \draw [proton, thin] (CR) -- ($(CR)+(\ang:\len cm)$) coordinate (\name);
     }
@@ -258,5 +263,57 @@
       -- ($(solar1c)+(150:0.14cm)$) coordinate (solar1d) -- (solar1b) -- cycle;
     \draw [white, fill=spaceblue!70!blue!70!white, line join=round] ([xshift=-0.01cm, yshift=0.155cm]solar1b) coordinate (solar2a) -- ($(solar2a)+(100:0.35cm)$) coordinate (solar2c)
       -- ($(solar2c)+(-30:0.11cm)$) coordinate (solar2d) -- ($(solar2d)+(-80:0.35cm)$) -- cycle;
+
+
+    \IfEndWith*{\jobname}{_accelerator}{%
+    %% Accelerator
+    \draw [thick] ($(Earth)+(29:1.6cm)$) ellipse (0.25cm and 0.1cm);
+    \draw [thick] ($(Earth)+(25:1.65cm)$) ellipse (0.12cm and 0.048cm);
+    \node [draw=white, circle, minimum width=0.6cm] (magnifier) at ($(Earth)+(29:1.6cm)$) {};
+
+    \node [
+      draw=white,
+      thick,
+      fill=spaceblue,
+      circle,
+      minimum width=3.5cm,
+      outer sep=0pt
+    ] (eventDisplay) at ($(Earth)+(60:6cm)$) {};
+    \node [above, white] at (eventDisplay.north) {Accelerator};
+
+    \begin{scope}[shift=(eventDisplay)]
+        \draw [plantygreen!70!white, line width=4pt] (0,0) circle (1.07cm);
+        \draw [agnyellow!20!red!60!white, line width=7pt] (0,0) circle (1.3cm);
+
+        \foreach \sangle/\eangle in {
+          46/188, -18/125, 35/280, 71/307,
+          19/324, 30/107, -45/255, -48/212,
+          -16/161, 63/142
+        }{
+          \draw [cyan, line cap=round] (0, 0) to[bend left=\sangle] (\eangle:1cm);
+        }
+
+        \foreach \sangle/\eangle/\radius in {
+          -83/274/0.53, -12/220/0.42, -4/20/0.52, -6/260/0.82,
+          75/131/0.31, -63/267/1, -35/194/1, -58/317/0.56,
+          -47/121/0.41, 73/335/0.72, 79/304/0.38, -82/119/0.56,
+          23/173/1, -49/191/1.00, -56/276/1, -38/248/0.52,
+          -56/306/0.78, -2/133/0.79, 89/181/0.57, 15/155/0.75,
+          40/327/0.31, -2/109/0.45, -88/211/0.67, -75/43/0.41,
+          -42/306/0.42, -47/138/0.89, 61/122/0.99, 61/209/0.69,
+          63/179/0.89, 24/305/0.99, 10/191/0.40, 26/186/0.61,
+          -17/37/0.57, 30/7/0.36, 52/143/0.83
+        }{
+          \draw [agnyellow, line cap=round] (0, 0) to[bend left=\sangle] (\eangle:\radius);
+        }
+        \foreach \delta in {3.66, 2.20, 2.77, 3.27, 4.85, 4.92, 1.44, 3.67, 3.75, 1.73, 0.62, 0.20}{
+          \draw [magenta!80!white, very thin] (0,0) -- (95 + \delta:1cm);
+        }
+        \draw [neutrino, thin] (0,0) -- (60:1.75cm);
+
+        \draw [white] (magnifier.west) -- (eventDisplay.west);
+        \draw [white] (magnifier.east) -- ($(eventDisplay) + (-45:1.75cm)$);
+    \end{scope}
+    }{}
 \end{tikzpicture}
 \end{document}

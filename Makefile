@@ -37,12 +37,15 @@ build/cm_overview.svg: build/cm_overview.pdf
 	$(call inksvg,$<,$@)
 
 
-convert_png: build/cm_overview.png build/cm_overview_accelerator.png
+convert_png: build/cm_overview.png build/cm_overview_accelerator.png build/cm_overview_grav.png
 
 build/cm_overview.png: build/cm_overview.pdf
 	convert -density 600 $< $@
 
 build/cm_overview_accelerator.png: build/cm_overview_accelerator.pdf
+	convert -density 600 $< $@
+
+build/cm_overview_grav.png: build/cm_overview_grav.pdf
 	convert -density 600 $< $@
 
 

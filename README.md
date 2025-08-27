@@ -41,8 +41,8 @@ If you want to include this graphic in a project or scientific work, refer to th
   month        = aug,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {v3.0},
-  doi          = {10.5281/zenodo.13492862},
-  url          = {https://doi.org/10.5281/zenodo.13492862}
+  version      = {v4.0},
+  doi          = {10.5281/zenodo.16969203},
+  url          = {https://doi.org/10.5281/zenodo.16969203}
 }
 ```

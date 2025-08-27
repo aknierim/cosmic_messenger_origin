@@ -35,6 +35,9 @@
 \usepackage{xparse}
 \usepackage{xstring}
 
+\usepackage{ifthen}
+
+
 \begin{document}
   \begin{tikzpicture}[
       >=latex,
@@ -66,6 +69,16 @@
         line cap=round
       },
       telescope/.style={spaceblack, thick, line cap=round},
+      path fade action/.style={
+        line width=\pgflinewidth+1.1pt,draw opacity=0.075,draw=#1, line cap=round,
+      },
+      path fade recurs/.code 2 args={%
+        \pgfmathtruncatemacro{\level}{#1-1}%
+        \ifthenelse{\equal{\level}{0}}%
+        {\tikzset{preaction={path fade action=#2}}}%
+        {\tikzset{preaction={path fade action=#2,path fade recurs={\level}{#2}}}}
+      },
+      path fade/.style={preaction={path fade recurs={10}{#1}},draw opacity=0.075,draw=#1, line cap=round},
     ]
     \fill [spaceblue] (0,-1) rectangle (19,10);
     \input{stars.tex}
@@ -96,7 +109,7 @@
         \fill [white] ([yshift=-1.5cm]Earth) ellipse (0.7cm and 0.12cm);
         \fill [white] ([yshift=1.5cm]Earth) ellipse (0.3cm and 0.08cm);
       \end{scope}
-      \fill [black, opacity=0.2] (Earth) +(80:1.5cm) arc(80:-80:1.5cm) arc(-50:50:1.928cm);
+      \fill [black, opacity=0.2] (Earth) +(-100:1.5cm) arc(-100:-260:1.5cm) arc (-50:50:-1.928cm);
     \end{scope}
 
     %% AGN
@@ -315,5 +328,43 @@
         \draw [white] (magnifier.east) -- ($(eventDisplay) + (-45:1.75cm)$);
     \end{scope}
     }{}
-\end{tikzpicture}
+
+    \IfEndWith*{\jobname}{_grav}{%
+      %% Gravitational waves
+      \coordinate (merger) at ($(Earth)+(60:7cm)$);
+      \coordinate (n1) at ($(merger)+(-140:0.2cm)$);
+      \coordinate (n2) at ($(merger)+(40:0.25cm)$);
+
+      \coordinate (detector) at ($(Earth)+(29:1.6cm)$);
+
+      \draw [telescope] (detector) -- ($(detector)+(60:3mm)$);
+      \draw [telescope] (detector) -- ($(detector)+(-30:3mm)$);
+
+      \begin{scope}[shift=(merger)]
+        \draw [line width=1pt, path fade=gravpurple, line cap=round, domain=3:25, variable=\t, smooth, samples=500]
+          plot ({\t r}: {0.01*\t*\t});
+      \end{scope}
+
+      \begin{scope}[shift=(merger)]
+        \draw [line width=1pt, path fade=gravpurple, line cap=round, domain=3:22, variable=\t, smooth, samples=500]
+          plot ({\t r}: {-0.01*\t*\t});
+      \end{scope}
+
+      \fill [jetblue1] (n1) circle (2mm);
+      \fill [jetblue1] (n2) circle (1.7mm);
+
+      \fill [circFade=jetblue1!10!white] (n1) circle (4mm);
+      \fill [circFade=jetblue1!10!white] (n2) circle (3.4mm);
+
+      \fill [jetblue1!70!white] (n1) circle (0.95 * 2mm);
+      \fill [jetblue1!50!white] (n1) circle (0.9 * 2mm);
+      \fill [jetblue1!40!white] (n1) circle (0.8 * 2mm);
+      \fill [jetblue1!20!white] (n1) circle (0.7 * 2mm);
+
+      \fill [jetblue1!70!white] (n2) circle (0.95 * 1.7mm);
+      \fill [jetblue1!50!white] (n2) circle (0.9 * 1.7mm);
+      \fill [jetblue1!40!white] (n2) circle (0.8 * 1.7mm);
+      \fill [jetblue1!20!white] (n2) circle (0.7 * 1.7mm);
+    }{}
+  \end{tikzpicture}
 \end{document}

@@ -13,7 +13,7 @@ endef
 
 
 
-all: build/cm_overview.pdf build/cm_overview_accelerator.pdf
+all: build/cm_overview.pdf build/cm_overview_accelerator.pdf build/cm_overview_grav.pdf
 
 build/%.pdf: FORCE build/black_hole.pdf | build
 	$(TeXInputs) latexmk -r ./latexmkrc --jobname=$* cm_overview.tex
@@ -28,7 +28,7 @@ build/black_hole.pdf:
 	$(TeXInputs) latexmk -r ./latexmkrc black_hole.tex
 
 preview: FORCE build/black_hole.pdf | build
-	$(TeXInputs) latexmk -r ./latexmkrc -pvc --jobname=$*_grav cm_overview.tex
+	$(TeXInputs) latexmk -r ./latexmkrc -pvc cm_overview.tex
 
 preview_black_hole:
 	$(TeXInputs) latexmk -r ./latexmkrc -pvc black_hole.tex

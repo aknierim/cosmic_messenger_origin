@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/812022899.svg)](https://zenodo.org/doi/10.5281/zenodo.11580793)
+[![DOI](https://zenodo.org/badge/812022899.svg)](https://zenodo.org/badge/latestdoi/812022899)
 
 # Cosmic Messenger Origin
 

@@ -21,11 +21,14 @@ build/%.pdf: FORCE build/black_hole.pdf | build
 build/%_accelerator.pdf: FORCE build/black_hole.pdf | build
 	$(TeXInputs) latexmk -r ./latexmkrc --jobname=$*_accelerator cm_overview.tex
 
+build/%_grav.pdf: FORCE build/black_hole.pdf | build
+	$(TeXInputs) latexmk -r ./latexmkrc --jobname=$*_grav cm_overview.tex
+
 build/black_hole.pdf:
 	$(TeXInputs) latexmk -r ./latexmkrc black_hole.tex
 
 preview: FORCE build/black_hole.pdf | build
-	$(TeXInputs) latexmk -r ./latexmkrc -pvc cm_overview.tex
+	$(TeXInputs) latexmk -r ./latexmkrc -pvc --jobname=$*_grav cm_overview.tex
 
 preview_black_hole:
 	$(TeXInputs) latexmk -r ./latexmkrc -pvc black_hole.tex
